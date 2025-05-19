@@ -1,0 +1,23 @@
+# Diretórios de saída de compilação
+/bin/
+/out/
+
+# Arquivos compilados
+*.class
+
+# IDE IntelliJ IDEA
+/.idea/
+/*.iml
+*.iws
+
+# Arquivos de configurações locais (Windows, macOS)
+Thumbs.db
+.DS_Store
+
+# Logs e arquivos temporários
+*.log
+*~
+
+# Arquivos de build de Maven/Gradle (se existir)
+/target/
+/build/
