@@ -1,28 +1,53 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+// File: CyclicRequestListenerBehaviour.java
 package agents;
 
-import jade.core.behaviours.Behaviour;
+import jade.core.behaviours.CyclicBehaviour;
+import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
 
 /**
- *
- * @author eduar
+ * Behaviour cíclico que escuta requests do CoordenadorAgent para análise de dados
+ * e notificações de enriquecimento do EnriquecedorWebAgent. 
+ * Ao receber uma mensagem compatível, agenda um InsightsAnalysisBehaviour.
  */
-public class CyclicRequestListenerBehaviour extends Behaviour {
+public class CyclicRequestListenerBehaviour extends CyclicBehaviour {
+    private static final long serialVersionUID = 1L;
+    private final InsightsAgent agent;
+    // Template para REQUEST do Coordenador ("AnalyzeData") ou INFORM de enriquecimento ("EnrichmentNotification")
+    private final MessageTemplate mt;
 
-    public CyclicRequestListenerBehaviour(InsightsAgent aThis) {
+    public CyclicRequestListenerBehaviour(InsightsAgent a) {
+        super(a);
+        this.agent = a;
+        MessageTemplate reqFromCoordinator = MessageTemplate.and(
+                MessageTemplate.MatchPerformative(ACLMessage.REQUEST),
+                MessageTemplate.MatchOntology("AnalyzeData")
+        );
+        MessageTemplate enrichNotification = MessageTemplate.and(
+                MessageTemplate.MatchPerformative(ACLMessage.INFORM),
+                MessageTemplate.MatchOntology("EnrichmentNotification")
+        );
+        this.mt = MessageTemplate.or(reqFromCoordinator, enrichNotification);
     }
 
     @Override
     public void action() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        ACLMessage msg = myAgent.receive(mt);
+        if (msg != null) {
+            String senderName = msg.getSender().getLocalName();
+            String ontologia  = msg.getOntology();
+            String conteudo   = msg.getContent();
 
-    @Override
-    public boolean done() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            System.out.println("InsightsAgent recebeu de " + senderName +
+                    " (ontologia='" + ontologia + "') → " + conteudo);
+
+            /*
+             * Se for REQUEST do CoordenadorAgent (AnalyzeData), inicia análise dos dados recém-validados.
+             * Se for INFORM de EnriquecedorWebAgent (EnrichmentNotification), reanalisa com o contexto enriquecido.
+             */
+            agent.addBehaviour(new InsightsAnalysisBehaviour(agent, ontologia, conteudo));
+        } else {
+            block();
+        }
     }
-    
 }
