@@ -231,7 +231,7 @@ public class MonitorDeDadosAgent extends Agent {
                             Enriquecimento e = (Enriquecimento) payload;
                             System.out.println("MonitorDeDadosAgent recebeu Enriquecimento:");
                             System.out.println("  fonte     = " + e.getFonte());
-                            System.out.println("  timestamp = " + e.getTimestamp()final commit );
+                            System.out.println("  timestamp = " + e.getTimestamp());
                             System.out.println("  detalhes  = " + e.getDetalhes());
 
                             // (Opcional: disparar nova verificação do banco, se necessário)
