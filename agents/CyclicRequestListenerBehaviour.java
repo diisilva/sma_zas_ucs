@@ -1,28 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package agents;
 
 import jade.core.behaviours.Behaviour;
+import jade.core.Agent;
 
 /**
- *
- * @author eduar
+ * Behaviour temporário que não faz nada além de bloquear,
+ * evitando que o agente lance UnsupportedOperationException.
+ * Posteriormente, você pode implementar a lógica de escuta de requisições aqui.
  */
 public class CyclicRequestListenerBehaviour extends Behaviour {
 
-    public CyclicRequestListenerBehaviour(InsightsAgent aThis) {
+    public CyclicRequestListenerBehaviour(Agent aThis) {
+        super(aThis);
     }
 
     @Override
     public void action() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // Apenas bloqueia para economizar CPU; será chamado de novo porque done() retorna false
+        block(1000);
     }
 
     @Override
     public boolean done() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // Retorna false para nunca terminar; comportamento ficará ativo indefinidamente
+        return false;
     }
-    
 }
