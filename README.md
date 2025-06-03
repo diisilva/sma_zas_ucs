@@ -104,15 +104,21 @@ Roda o container JADE com Coordenador, Insights e Enriquecedor:
    ```powershell
    PS C:\sma_zas_ucs> java -cp ".;libs\jade.jar;bin" jade.Boot -gui "ping:agents.testing.PingAgent;pong:agents.testing.PongAgent"
    ```
-3. **Teste de Integração** (fluxo completo)
+3. **Modo simple (apenas “Monitor → AguardarZona”):** 
 
    ```powershell
-   PS C:\sma_zas_ucs> java -cp ".;libs\jade.jar;bin" jade.Boot -gui \
-     coord:agents.CoordenadorAgent \
-     ins:agents.InsightsAgent \
-     enr:agents.EnriquecedorWebAgent
+   java -cp ".;libs\jade.jar;libs\postgresql-42.5.6.jar;bin" jade.Boot -gui "coord:agents.CoordenadorAgent(simple);mon:agents.MonitorDeDadosAgent;ins:agents.InsightsAgent;enr:agents.EnriquecedorWebAgent"
    ```
+4. **Modo insightsOnly (Monitor → Insights → Fim):** 
 
+   ```powershell
+   java -cp ".;libs\jade.jar;libs\postgresql-42.5.6.jar;bin" jade.Boot -gui "coord:agents.CoordenadorAgent(insightsOnly);mon:agents.MonitorDeDadosAgent;ins:agents.InsightsAgent"
+   ```
+5. **Modo full (Monitor → Insights → Enriquecedor → Final):** 
+
+   ```powershell
+   java -cp ".;libs\jade.jar;libs\postgresql-42.5.6.jar;bin" jade.Boot -gui "coord:agents.CoordenadorAgent(full);mon:agents.MonitorDeDadosAgent;ins:agents.InsightsAgent;enr:agents.EnriquecedorWebAgent"
+   ```
 ## Descrição dos Diretórios e Arquivos
 
 * **agents/**: código-fonte dos agentes JADE e behaviours. Contém também a ontologia (`DashboardOntology.java`).
