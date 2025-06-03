@@ -73,7 +73,7 @@ Thumbs.db
 3. Compile os agentes principais:
 
    ```powershell
-   PS C:\sma_zas_ucs> javac -cp ".;libs\jade.jar" -d bin agents\*.java
+   PS C:\sma_zas_ucs>  javac -encoding UTF-8 -cp ".;libs\\jade.jar;libs\\postgresql-42.5.6.jar" -d bin agents\\*.java
    ```
 4. Compile os testes de agentes:
 

@@ -47,10 +47,10 @@ import sys
 # --------------------------- CONFIGURAÇÕES ---------------------------
 
 # Caminho completo para o CSV original (host)
-input_path = "/mnt/c/Users/diegof.silva/Downloads/BI-20250414T215303Z-001/BI/cluster_risk_by_year_buffer.csv"
+input_path = "C:\sma_zas_ucs\auxiliar\cluster_risk_by_year_buffer.csv"
 
 # Onde o script irá salvar o CSV processado (host)
-output_host_path = "/mnt/c/Users/diegof.silva/Downloads/BI-20250414T215303Z-001/BI/cluster_processed.csv"
+output_host_path = "C:\sma_zas_ucs\auxiliar\cluster_risk_by_year_buffer.csv\cluster_processed.csv"
 
 # Nome do container Docker que já deve estar em execução
 container_name = "db_test_dev_diego"
@@ -129,7 +129,6 @@ def main():
     except subprocess.CalledProcessError as e:
         print("ERRO ao executar o import no Postgres:", e)
         sys.exit(1)
-
 
 if __name__ == "__main__":
     main()
