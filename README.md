@@ -1,6 +1,6 @@
 # Projeto SMA\_ZAS\_UCS
 
-Este projeto demonstra o uso do framework JADE (Java Agent DEvelopment Framework) para construção e teste de agentes inteligentes em Java.
+Utilizando Sistema Multi Agente numa base de dados de Zonas de Amortecimento Sintéticas, em unidades de conservação de Santa Catarina. Isso é demonstrado com o uso do framework JADE (Java Agent DEvelopment Framework) para construção e teste de agentes inteligentes em Java.
 
 ## Pré-requisitos
 
